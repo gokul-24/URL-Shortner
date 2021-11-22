@@ -1,0 +1,25 @@
+<html>
+    <head><title>Short URL</title></head>
+    <body>
+        <form action="" method="POST">
+            {% csrf_token %}
+        Enter long URL: <input type="text" placeholder="Enter a long url" name="long">
+        <input type="submit" name="action" value="Generate short url"><br><br><br>
+
+        Enter long URL: <input type="text" placeholder="Enter a long url" name="api1">
+        <input type="submit" name="api" value="Generate bitly short url">
+        </form>
+        Generated URL: {{shortURL}}
+
+        <h2>ALL AVAILABLE URLS:</h2>
+        {% for i in res %}
+        ID: {{i.id}}<br>
+        LONG_URL:{{i.long_url}}<br>
+        SHORT_URL:{{i.short_url}}<br>
+        DATE CREATED:{{i.date_created}}<br>
+        CLICKS :{{i.clicks}}<br>
+        <hr>
+        {% endfor %}
+    </body>
+</html>
+    

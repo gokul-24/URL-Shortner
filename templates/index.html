@@ -1,0 +1,111 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Shorten the Url</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="{% static 'styles1.css' %}">
+
+<script>  
+      {% for msg in messages %}
+      alert("{{msg}}");
+      {% endfor %}
+  function copy()
+  {
+  navigator.clipboard.writeText("{{shortURL}}"); 
+  }
+</script>
+
+</head>
+<body>
+  
+
+<div class="wrapper">
+  <div class="header">
+    <div class="title">
+      Url Shortener
+    </div>
+
+      <form action="" method="POST">
+        {% csrf_token %}
+    
+    
+	<div class="search_box">
+      <input type="text" id="search_input" name="long" placeholder="Enter long url">
+      <input type="submit" name="action" value="Generate short url" style="background:#fff;color:black; margin-left:0%; width:20%;">
+    </div>
+    <div class="search_box">
+      <input type="text" id="search_input" name="api1" placeholder="Enter long url">
+      <input type="submit" name="api" value="Generate bitly short url" style="background:#fff;color:black; margin-left:0%; width:20%;">
+    </div>
+    
+  </form>
+  </div>
+
+    
+  {% if shortURL is not none %}
+  <div class="copy-text" > 
+    <h3>Generated Url : {{shortURL}}</h3>
+    <button onclick="copy()"> 
+      <i class="fa fa-clone"></i>
+    </button>
+    </div>
+  </div>
+  {% endif %} 
+  
+  <div class="table_wrap">
+    <div class="table_header">
+      <ul>
+        <li>
+          <div class="item">
+            <div class="name">
+              <span>LONG URL</span>
+            </div>
+            <div class="name">
+              <span>SHORT URL</span>
+            </div>
+            <div class="name">
+              <span>CLICKS</span>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+    <div class="table_body">
+      {% for i in res%}
+      <ul>
+        <li>
+          <div class="item">
+            <div class="name">
+    
+              <span><a style="text-decoration:none" href="{{i.long_url}}">{{i.long_url}}</a></span>
+            </div>
+            <div class="name">
+              {% if i.flag == 0 %}
+              <span><a style="text-decoration:none" href="{{i.short_url}}">https://127.0.0.1:8000/{{i.short_url}}</a></span>
+              {% else %}
+              <span><a style="text-decoration:none" href="{{i.short_url}}">{{i.short_url}}</a></span>
+              {% endif %}
+            </div>
+            <div class="name">
+              <span>{{i.clicks}}</span>
+
+            </div>
+      
+          </div>
+        </li>
+        <li>
+      {% endfor %}
+
+      </ul>
+    </div>
+  </div>
+
+
+
+</div>
+</body>
+</html>
